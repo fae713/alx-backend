@@ -5,7 +5,7 @@ page and page_size.
 """
 
 
-def index_range(page: int, page_size: int):
+def index_range(page: int, page_size: int) -> tuple:
     """
     This function returns a tuple of size two containing a
     start index and an end index corresponding to the range
