@@ -66,9 +66,9 @@ class Server:
         if valid_index is None:
             return {
                 "index": index,
-                "next_index": None,
-                "page_size": page_size,
                 "data": [],
+                "page_size": page_size,
+                "next_index": None,
             }
 
         end_index = min(valid_index + page_size, len(self.__indexed_dataset))
@@ -81,7 +81,7 @@ class Server:
 
         return {
             "index": valid_index,
-            "next_index": next_index,
-            "page_size": page_size,
-            "data": data,
+                "data": data,
+                "page_size": page_size,
+                "next_index": next_index,
         }
