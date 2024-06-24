@@ -81,7 +81,7 @@ class Server:
 
         return {
             "index": valid_index,
-                "data": data,
-                "page_size": page_size,
-                "next_index": next_index,
+            "data": data,
+            "page_size": page_size,
+            "next_index": next_index,
         }
