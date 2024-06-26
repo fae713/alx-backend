@@ -27,7 +27,9 @@ class FIFOCache(BaseCaching):
         if key is None and item is None:
             return
 
-        if len(self.cache_data) >= self.MAX_ITEMS:
+        if key in self.cache_data:
+            self.queue.remove(key)
+        elif len(self.cache_data) >= self.MAX_ITEMS:
             first_key = self.queue.pop(0)
             del self.cache_data[first_key]
             print(f"DISCARD: {first_key}")
