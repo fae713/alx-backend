@@ -3,6 +3,7 @@
 LIFO: Last In, First Out caching task.
 """
 from base_caching import BaseCaching
+from collections import OrderedDict
 
 
 class LIFOCache(BaseCaching):
@@ -11,7 +12,7 @@ class LIFOCache(BaseCaching):
     """
     def __init__(self):
         super().__init__()
-        self.stack = []
+        self.stack = OrderedDict()
 
     def put(self, key, item):
         """
