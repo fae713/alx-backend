@@ -27,7 +27,7 @@ def index() -> str:
     """
     This is the home route.
     """
-    return render_template('3-index.html')
+    return render_template('4-index.html')
 
 
 @babel.localeselector
@@ -38,8 +38,11 @@ def get_locale() -> str:
     returns:
             str = best match.
     """
-    best_match = request.accept_languages.best_match(app.config['LANGUAGES'])
-    return best_match
+    locale = request.args.get('locale')
+    if locale in app.config['LANGUAGES']:
+        return locale
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
+
 
 
 if __name__ == '__main__':
