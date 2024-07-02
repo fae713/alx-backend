@@ -1,8 +1,16 @@
+#!/usr/bin/en python3
+"""
+Basic Babel setup.
+"""
+
 from flask import Flask, render_template
 from flask_babel import Babel, gettext as _
 
 
 class Config(object):
+    """
+    Config class.
+    """
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "utc"
@@ -15,7 +23,12 @@ app.config.from_object(Config)
 
 
 @app.route('/')
-def home():
+def index() -> str:
+    """
+    The home route.
+
+    returns - > html page.
+    """
     return render_template('1-index.html')
 
 
