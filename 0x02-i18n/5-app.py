@@ -1,0 +1,77 @@
+#!/usr/bin/env python3
+"""
+Mock logging in.
+"""
+
+from flask import Flask, render_template, request, g
+from flask_babel import Babel, _
+from typing import Union, Dict
+
+
+class Config(object):
+    """
+    Config class.
+    """
+    LANGUAGES = ["en", "fr"]
+    BABEL_DEFAULT_LOCALE = "en"
+    BABEL_DEFAULT_TIMEZONE = "utc"
+
+
+app = Flask(__name__)
+app.config.from_object(Config)
+babel = Babel(app)
+app.url_map.strict_slashes = False
+
+
+users = {
+    1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
+    2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
+    3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
+    4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
+}
+
+
+def get_user() -> Union[dict, None]:
+    """
+    function that returns a user dictionary
+    or None if the ID cannot be found
+    or if login_as was not passed.
+    """
+    Ulogin_id = request.args.get('login_as')
+    if Ulogin_id:
+        return users.get(int(Ulogin_id))
+    return None
+
+
+@app.before_request
+def before_request() -> None:
+    """
+    This function finds a user if any.
+    """
+    g.user = get_user
+
+
+@babel.localeselector
+def get_locale() -> str:
+    """
+    Gets the locale for a web page.
+
+    returns:
+            str = best match.
+    """
+    locale = request.args.get('locale')
+    if locale in app.config['LANGUAGES']:
+        return locale
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+
+@app.route('/')
+def index() -> str:
+    """
+    This is the home route.
+    """
+    return render_template('4-index.html')
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Parametrize templates.
+Force locale with URL parameter
 """
 
 from flask import Flask, render_template, request
